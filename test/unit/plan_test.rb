@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: plans
+#
+#  id              :integer         not null, primary key
+#  advertiser_name :text
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 require 'test_helper'
 
 class PlanTest < ActiveSupport::TestCase

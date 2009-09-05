@@ -1,0 +1,4 @@
+syntax:glob
+*.log
+*.sqlite3
+doc/app
