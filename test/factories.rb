@@ -16,4 +16,7 @@ Factory.define(:plan) do |plan|
 end
 
 Factory.define(:site) do |site|
+  site.name "Facebook"
+  site.url "http://www.facebook.com"
+  site.billing_contact "Mark Zuckerberg"
 end
