@@ -10,7 +10,7 @@
 
 class Plan < ActiveRecord::Base
   has_many :buys
-  validates_presence_of :buys, :advertiser_name
+  validates_presence_of :advertiser_name
 
   named_scope :all_for_site, lambda { |site|
       {

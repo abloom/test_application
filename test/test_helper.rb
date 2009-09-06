@@ -35,4 +35,8 @@ class ActiveSupport::TestCase
   # fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  
+  def assert_false(test, msg = "should be false")
+    assert !test, msg
+  end
 end
