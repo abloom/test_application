@@ -14,8 +14,8 @@ class Plan < ActiveRecord::Base
 
   named_scope :all_for_site, lambda { |site|
       {
-        :conditions => ["sites.name = ?", site.name],
-        :joins => { :buys => :site },
+        :conditions => ["buys.site_id = ?", site.id],
+        :joins => :buys,
         :select => "DISTINCT plans.*"
       }
     }
