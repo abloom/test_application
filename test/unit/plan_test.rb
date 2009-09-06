@@ -33,32 +33,39 @@ class PlanTest < ActiveSupport::TestCase
     assert_equal 1000, @plan.cost
   end
   
-  test "all_for_site should only return Plans for a given site" do
-    facebook = Factory(:site)
-    google = Factory(:site, :url => "http://www.google.com", :name => "Google", :billing_contact => "Larry Page")
-    msn = Factory(:site, :url => "http://www.msn.com", :name => "MSN", :billing_contact => "Bill Gates")
+  context "all_for_site" do
+    setup do
+      @facebook = Factory(:site)
+      @google = Factory(:site, :url => "http://www.google.com", :name => "Google", :billing_contact => "Larry Page")
+      @msn = Factory(:site, :url => "http://www.msn.com", :name => "MSN", :billing_contact => "Bill Gates")
+
+      f_buy_1 = Factory(:buy)
+      f_buy_2 = Factory(:buy)
+
+      g_buy_1 = Factory(:buy, :site => @google)
+      g_buy_2 = Factory(:buy, :site => @google)
+
+      @f_plan = Factory(:plan, :buys => [f_buy_1, f_buy_2])
+      @g_plan = Factory(:plan, :buys => [g_buy_1, g_buy_2])
+
+      m_buy_f = Factory(:buy, :site => @msn)
+      @f_plan.buys << m_buy_f
+
+      m_buy_g = Factory(:buy, :site => @msn)
+      @g_plan.buys << m_buy_g
+    end
     
-    f_buy_1 = Factory(:buy)
-    f_buy_2 = Factory(:buy)
+    should "only return plans for Google" do
+      assert_equal [@g_plan], Plan.all_for_site(@google)
+    end
     
-    g_buy_1 = Factory(:buy, :site => google)
-    g_buy_2 = Factory(:buy, :site => google)
+    should "only return plans for Facebook" do
+      assert_equal [@f_plan], Plan.all_for_site(@facebook)
+    end
     
-    f_plan = Factory(:plan, :buys => [f_buy_1, f_buy_2])
-    g_plan = Factory(:plan, :buys => [g_buy_1, g_buy_2])
-    
-    assert_equal [f_plan], Plan.all_for_site(facebook)
-    assert_equal [g_plan], Plan.all_for_site(google)
-    
-    m_buy_f = Factory(:buy, :site => msn)
-    f_plan.buys << m_buy_f
-    
-    m_buy_g = Factory(:buy, :site => msn)
-    g_plan.buys << m_buy_g
-    
-    plans = Plan.all_for_site(msn)
-    assert plans.include?(f_plan)
-    assert plans.include?(g_plan)
-    assert_equal 2, plans.size
+    should "only return plans for MSN" do
+      plans = Plan.all_for_site(@msn)
+      assert_equal [@f_plan, @g_plan], plans
+    end
   end
 end
