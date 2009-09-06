@@ -22,13 +22,19 @@ Documentation is available at http://www.thoughtbot.com/projects
 
 ==Exercises
 
-1. Currently, a Buy only has its site's name stored in an instance variable. We've generated a resource called Site for you. Please complete the following user stories and provide tests for your code.
+1. Currently, a Buy only has its site's name stored in an instance variable. 
+We've generated a resource called Site for you. Please complete the following user 
+stories and provide tests for your code.
+
 * -A Site can have many Buys. A Buy can have one Site.-
 * -A Site has a name, an URL and a billing contact (you don't need to implement 
   a Contact model).-
 * -Replace the site_name field on Buy with the Site model.-
 * -Write a finder on Plan to find all plans with Buys for a given Site.-
-2. The application currently has no user interface. Complete these stories with well-tested code. Don't worry about making it look awesome, just make it work.
+
+2. The application currently has no user interface. Complete these stories with 
+well-tested code. Don't worry about making it look awesome, just make it work.
+
 * As a user, I can create a new Plan.
 * As a user, I can add Buys to a Plan.
 * As a user, I can add a Site or @site_name to a Buy.
