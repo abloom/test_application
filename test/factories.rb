@@ -20,3 +20,4 @@ Factory.define(:site) do |site|
   site.url "http://www.facebook.com"
   site.billing_contact "Mark Zuckerberg"
 end
+
