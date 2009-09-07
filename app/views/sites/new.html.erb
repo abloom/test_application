@@ -1,6 +1,6 @@
-<h1>Create a new Plan</h1>
+<h1>Create a new Site</h1>
 
-<% form_for(@plan, :builder => LabeledBuilder) do |f| %>
+<% form_for(@site, :builder => LabeledBuilder) do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :locals => { :f => f } %>
   <%= submit_tag("Create") %>

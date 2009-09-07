@@ -1,24 +1,18 @@
-<%= error_messages_for :buy %>
+<h1>Create a new Buy</h1>
 
-<% form_for(@buy) do |f| %>
+<% form_for(@buy, :builder => LabeledBuilder) do |f| %>
+  <%= f.error_messages %>
+  
+  <%= f.collection_select :site_id, Site.all, :id, :name, :include_blank => true, :label => "Site" %>
+
+  or create a new Site  
   <% f.fields_for(:site) do |s| %>
-    <label>Site</label>
-    <%= s.collection_select :id, Site.all, :id, :name, :include_blank => true %>
-    <br />
-    or new Site
-    <br />
-
-    <label>Name</label>
-    <%= s.text_field :name %>
-    <br />
-    
-    <label>URL</label>
-    <%= s.text_field :url %>
-    <br />
-    
-    <label>Billing Contact</label>
-    <%= s.text_field :billing_contact %>
-    <br />
+    <%= render :partial => "sites/form", :locals => { :f => s } %>
+  <% end %>
+  
+  Create a new Placement
+  <% f.fields_for(:placement) do |p| %>
+    <%= render :partial => "placements/form", :locals => { :f => p } %>
   <% end %>
   
   <%= submit_tag "Create" %>

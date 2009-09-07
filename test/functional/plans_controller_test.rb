@@ -48,25 +48,11 @@ class PlansControllerTest < ActionController::TestCase
       assert_equal @plan, assigns("plan")
     end
     
-    should "return a 404 if an unknown plan is shown" do
-      @request.remote_addr = "123.456.789.012"
-      get :show, :id => "madeup"
-      
-      assert_response 404
-    end
-    
     should "load a specific plan" do
       get :edit, :id => @plan.id
       
       assert_response :success
       assert_equal @plan, assigns("plan")
-    end
-    
-    should "return a 404 if unknown plan is edited" do
-      @request.remote_addr = "123.456.789.012"
-      get :show, :id => "madeup"
-      
-      assert_response 404
     end
   end  
 end

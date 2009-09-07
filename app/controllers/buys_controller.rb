@@ -5,13 +5,11 @@ class BuysController < ApplicationController
   end
   
   def create
-    buy_params = params[:buy]
-    if buy_params[:site_attributes][:id].blank?
-      buy_params[:site_attributes].delete(:id)
+    buy_params = params[:buy].dup
+    if buy_params[:site_id].blank?
+      buy_params.delete(:site_id)
     else
-      buy_params[:site_attributes].delete(:name)
-      buy_params[:site_attributes].delete(:url)
-      buy_params[:site_attributes].delete(:billing_contact)
+      buy_params.delete(:site_attributes)
     end
     
     logger.debug buy_params.inspect
