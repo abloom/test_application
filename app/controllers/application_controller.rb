@@ -9,4 +9,6 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   layout "default"
+  
+  # rescue_action_in_public(ActiveRecord::RecordNotFound)
 end

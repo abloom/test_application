@@ -1,0 +1,29 @@
+<%= error_messages_for :plan %>
+
+<% form_for(@plan) do |f| %>
+  <%= render :partial => "form", :locals => { :f => f } %>
+  
+  <br />
+  <label>Add a Buy</label>
+  <%= collection_select :buy, :id, Buy.all, :id, :name %>
+  
+  <br />
+  <%= button_to_remote("Add", 
+        :with => "'buy_id=' + $('buy_id').value", 
+        :url => add_buy_plan_path(@plan), 
+        :method => :put) %>
+  <br />
+  
+  <label>Buys</label>
+  <ul id="buys">    
+    <% @plan.buys.each_with_index do |buy, i| %>
+      <%= render :partial => "buys_form", :locals => { :buy => buy, :index => i } %>
+    <% end %>
+  </ul>
+  
+  <br />
+  <%= submit_tag("Save") %>
+  
+<% end %>
+
+<%= home_link %>

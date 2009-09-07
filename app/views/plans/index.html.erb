@@ -1,0 +1,5 @@
+<ul>
+  <% @plans.each do |plan| %>
+  <li><%= link_to plan.advertiser_name, plan_path(plan) %></li>
+  <% end %>
+</ul>

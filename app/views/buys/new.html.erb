@@ -1,0 +1,25 @@
+<%= error_messages_for :buy %>
+
+<% form_for(@buy) do |f| %>
+  <% f.fields_for(:site) do |s| %>
+    <label>Site</label>
+    <%= s.collection_select :id, Site.all, :id, :name, :include_blank => true %>
+    <br />
+    or new Site
+    <br />
+
+    <label>Name</label>
+    <%= s.text_field :name %>
+    <br />
+    
+    <label>URL</label>
+    <%= s.text_field :url %>
+    <br />
+    
+    <label>Billing Contact</label>
+    <%= s.text_field :billing_contact %>
+    <br />
+  <% end %>
+  
+  <%= submit_tag "Create" %>
+<% end %>

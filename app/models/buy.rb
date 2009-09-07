@@ -15,6 +15,8 @@ class Buy < ActiveRecord::Base
   has_many :placements
   validates_presence_of :placements
   validates_presence_of :site
+  
+  accepts_nested_attributes_for :site
 
   def cost
     placements.inject(0) do |n, p|

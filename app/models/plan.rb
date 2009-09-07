@@ -11,6 +11,8 @@
 class Plan < ActiveRecord::Base
   has_many :buys
   validates_presence_of :advertiser_name
+  
+  accepts_nested_attributes_for :buys
 
   named_scope :all_for_site, lambda { |site|
       {
