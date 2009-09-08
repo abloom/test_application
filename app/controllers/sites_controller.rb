@@ -19,5 +19,6 @@ class SitesController < ApplicationController
   
   def show
     @site = Site.find(params[:id])
+    @plans = Plan.all_for_site(@site)
   end
 end

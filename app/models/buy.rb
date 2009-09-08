@@ -18,8 +18,8 @@ class Buy < ActiveRecord::Base
   
   accepts_nested_attributes_for :site
   
-  def site_name
-    site.name
+  def display_name
+    "#{site.name} - #{self.id}"
   end
 
   def cost

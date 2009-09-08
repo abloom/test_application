@@ -12,7 +12,6 @@ class BuysController < ApplicationController
       buy_params.delete(:site_attributes)
     end
     
-    logger.debug buy_params.inspect
     @buy = Buy.new(buy_params)
     
     if @buy.save

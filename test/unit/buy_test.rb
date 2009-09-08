@@ -26,6 +26,10 @@ class BuyTest < ActiveSupport::TestCase
     should "create a valid object" do
       assert @buy.valid?
     end
+    
+    should "have a display_name" do
+      assert_equal "Facebook - #{@buy.id}", @buy.display_name
+    end
   end
 
   test "a buy should have a cost equal to the sum of its placements' costs" do

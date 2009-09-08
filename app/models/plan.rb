@@ -22,6 +22,10 @@ class Plan < ActiveRecord::Base
       }
     }
 
+  def validate
+    errors.add_on_empty :buys, "must contain at least one record"
+  end
+
   def cost
     buys.inject(0) do |n, b|
       n + b.cost

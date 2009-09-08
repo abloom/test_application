@@ -3,3 +3,10 @@
 <%=h @site.url %>
 <br />
 <%=h @site.billing_contact %>
+
+<h2>Plans</h2>
+<ul>
+  <% @plans.each do |plan| %>
+  <li><%= link_to plan.advertiser_name, plan_path(plan) %></li>
+  <% end %>
+</ul>

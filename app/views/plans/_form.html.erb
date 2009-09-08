@@ -1,1 +1,2 @@
 <%= f.text_field :advertiser_name %>
+<%= f.collection_select :buy_ids, Buy.all, :id, :display_name, {}, :multiple => true, :size => 10, :label => "Buys" %>

@@ -1,28 +1,7 @@
 <h1>Edit a Plan</h1>
 
-<% form_for(@plan) do |f| %>
+<% form_for(@plan, :builder => LabeledBuilder) do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :locals => { :f => f } %>
-  
-  <br />
-  <label>Add a Buy</label>
-  <%= collection_select :buy, :id, Buy.all, :id, :site_name %>
-  
-  <br />
-  <%= button_to_remote("Add", 
-        :with => "'buy_id=' + $('buy_id').value", 
-        :url => add_buy_plan_path(@plan), 
-        :method => :put) %>
-  <br />
-  
-  <label>Buys</label>
-  <ul id="buys">    
-    <% @plan.buys.each_with_index do |buy, i| %>
-      <%= render :partial => "buys_form", :locals => { :buy => buy, :index => i } %>
-    <% end %>
-  </ul>
-  
-  <br />
   <%= submit_tag("Save") %>
-  
 <% end %>

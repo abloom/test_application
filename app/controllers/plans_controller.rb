@@ -18,7 +18,7 @@ class PlansController < ApplicationController
   end
   
   def show
-    @plan = Plan.find(params[:id])
+    @plan = Plan.find(params[:id])#, :include => { :buys => [:site, :placements] })
   end
   
   def edit
@@ -33,12 +33,5 @@ class PlansController < ApplicationController
     else
       render :action => "edit"
     end
-  end
-  
-  def add_buy
-    render :file => File.join(Rails.public_path, "404.html") unless request.xhr?
-    
-    buy = Buy.find(params[:buy_id])
-    render :partial => "buys_form", :locals => { :buy => buy }
   end
 end

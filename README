@@ -1,9 +1,7 @@
-==Centro Technology Developer Candidate Exercises
-
 This are exercises to test your aptitude for developing Rails apps. 
 
 This application is a very simple media planning application, similar to the one
-we work on every day at Centro.
+we work on every day.
 
 ==Models
 
@@ -36,14 +34,13 @@ stories and provide tests for your code.
 well-tested code. Don't worry about making it look awesome, just make it work.
 
 * -As a user, I can create a new Plan.-
-* As a user, I can add Buys to a Plan.
-* As a user, I can add a Site or @site_name to a Buy.
+* -As a user, I can add Buys to a Plan.-
+* -As a user, I can add a Site or @site_name to a Buy.-
 * As a user, I can add and edit Placements on a Buy.
-* As a user, I cannot save a Plan unless it has at least one Buy.
-* As a user, I cannot save a Buy unless it has a Site or @site_name and at least one 
-  Placement.
+* -As a user, I cannot save a Plan unless it has at least one Buy.-
+* -As a user, I cannot save a Buy unless it has a Site or @site_name and at least one 
+  Placement.-
   
 ==When you're finished
 
 * Create a branch with your solution on it.
-* Send a Github pull request or any clone url to developers@centro.net

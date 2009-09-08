@@ -18,6 +18,10 @@ class Placement < ActiveRecord::Base
   belongs_to :buy
   validates_presence_of :section, :ad_type, :start_date, :end_date
 
+  def display_name
+    "#{section} (#{ad_type}) - #{start_date.to_s(:short)} to #{end_date.to_s(:short)}"
+  end
+
   def cost
     rate * quantity
   end

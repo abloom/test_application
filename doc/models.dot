@@ -1,0 +1,10 @@
+digraph models_diagram {
+	graph[overlap=false, splines=true]
+	"Buy" [shape=Mrecord, label="{Buy|created_at :datetime\lupdated_at :datetime\l}"]
+	"Placement" [shape=Mrecord, label="{Placement|section :text\lad_type :text\lstart_date :datetime\lend_date :datetime\lcreated_at :datetime\lupdated_at :datetime\lquantity :integer\lrate :integer\l}"]
+	"Plan" [shape=Mrecord, label="{Plan|advertiser_name :text\lcreated_at :datetime\lupdated_at :datetime\l}"]
+	"Site" [shape=Mrecord, label="{Site|created_at :datetime\lupdated_at :datetime\lname :string\lurl :string\lbilling_contact :string\l}"]
+	"Buy" -> "Placement" [arrowtail=crow, arrowhead=dot, dir=both]
+	"Plan" -> "Buy" [arrowtail=crow, arrowhead=dot, dir=both]
+	"Site" -> "Buy" [arrowtail=crow, arrowhead=dot, dir=both]
+}

@@ -32,6 +32,10 @@ class PlacementTest < ActiveSupport::TestCase
     should "creates a valid object" do
       assert @placement.valid?
     end
+    
+    should "have a display_name" do
+      assert_equal "A section (768x90 Banner) - #{1.day.from_now.to_s(:short)} to #{15.day.from_now.to_s(:short)}", @placement.display_name
+    end
   end
 
   test "a placement should have a price" do

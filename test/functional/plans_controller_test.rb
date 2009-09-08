@@ -9,7 +9,7 @@ class PlansControllerTest < ActionController::TestCase
   
   test "create with valid params" do
     assert_difference "Plan.count" do
-      post :create, :plan => { :advertiser_name => "Ford" }
+      post :create, :plan => { :advertiser_name => "Ford", :buy_ids => [Factory(:buy).id] }
     end
     
     plan = assigns("plan")
@@ -53,6 +53,29 @@ class PlansControllerTest < ActionController::TestCase
       
       assert_response :success
       assert_equal @plan, assigns("plan")
+    end
+    
+    should "update with valid params" do
+      buy1 = Factory(:buy)
+      buy2 = Factory(:buy)
+      put :update, :plan => { :advertiser_name => "Ford", :buy_ids => [buy1.id, buy2.id] }, :id => @plan.id
+
+      plan = assigns("plan")
+      assert plan
+      assert_equal @plan.id, plan.id
+      assert_equal "Ford", plan.advertiser_name
+      assert_equal [buy1, buy2], plan.buys
+      assert_redirected_to root_path
+    end
+
+    should "update with invalid params" do
+      put :update, :plan => { :advertiser_name => "", :buy_ids => [] }, :id => @plan.id
+
+      plan = assigns("plan")
+      assert plan
+      assert_equal @plan.id, plan.id
+      assert_false plan.valid?
+      assert_response :success
     end
   end  
 end

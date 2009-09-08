@@ -22,6 +22,12 @@ class PlanTest < ActiveSupport::TestCase
     should "build a valid instance" do
       assert @plan.valid?
     end
+    
+    should "require at least one buy to be valid" do
+      @plan.buys = []
+      assert_false @plan.valid?
+      assert @plan.errors.on(:buys)
+    end
   end
   
   test "a plan should have a cost equal to the sum of its buys' costs" do

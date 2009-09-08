@@ -1,4 +1,13 @@
-<%= @plan.advertiser_name %>
+<p><%= @plan.advertiser_name %></p>
 
-<br />
+<div>
+  Buys:
+  <ul>
+    <% @plan.buys.each do |buy| %>
+      <li><%= buy.display_name %></li>
+    <% end %>
+  </ul>
+  <br />  
+</div>
+
 <%= link_to "Edit", edit_plan_path(@plan) %>

@@ -1,5 +1,5 @@
 class LabeledBuilder < ActionView::Helpers::FormBuilder
-  select_form_fields  = [:date_select, :select, :collection_select]
+  select_form_fields  = [:date_select, :datetime_select, :select, :collection_select]
   text_form_fields = field_helpers - %w(hidden_field label radio_button fields_for)
   
   (select_form_fields + text_form_fields).each do |name|
