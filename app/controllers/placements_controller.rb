@@ -12,4 +12,12 @@ class PlacementsController < ApplicationController
       render :action => "new"
     end
   end
+  
+  def index
+    @placements = Placement.all
+  end
+  
+  def show
+    @placement = Placement.find(params[:id])
+  end
 end

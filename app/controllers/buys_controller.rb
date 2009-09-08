@@ -21,4 +21,26 @@ class BuysController < ApplicationController
       render :action => "new"
     end
   end
+  
+  def index
+    @buys = Buy.all
+  end
+  
+  def show
+    @buy = Buy.find(params[:id])
+  end
+  
+  def edit
+    @buy = Buy.find(params[:id])
+  end
+  
+  def update
+    @buy = Buy.find(params[:id])
+    
+    if @buy.update_attributes(params[:buy])
+      redirect_to root_path
+    else
+      render :action => "edit"
+    end
+  end
 end

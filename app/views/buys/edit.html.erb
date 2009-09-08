@@ -1,0 +1,7 @@
+<h1>Edit a Buy</h1>
+
+<% form_for(@buy, :builder => LabeledBuilder) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :locals => { :f => f } %>  
+  <%= submit_tag "Create" %>
+<% end %>

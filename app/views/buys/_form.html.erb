@@ -1,11 +1,13 @@
 <%= f.collection_select :site_id, Site.all, :id, :name, :include_blank => true, :label => "Site" %>
 
+<% if @controller.action_name == :new %>
 <fieldset>
   <legend>or create a new Site</legend>
   <% f.fields_for(:site) do |s| %>
     <%= render :partial => "sites/form", :locals => { :f => s } %>
   <% end %>
 </fieldset>
+<% end %>
 
 <%= f.collection_select :placement_ids, Placement.all, :id, :display_name, {}, 
       :label => "Placements", 

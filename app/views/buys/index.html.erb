@@ -1,0 +1,5 @@
+<ul>
+  <% @buys.each do |buy| %>
+  <li><%= link_to buy.display_name, buy_path(buy) %></li>
+  <% end %>
+</ul>
