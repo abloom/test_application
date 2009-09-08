@@ -9,4 +9,14 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   layout "default"
+  
+  def remove_site_conflict!(hsh)
+    if hsh["site_id"].blank?
+      hsh.delete("site_id")
+    else
+      hsh.delete("site_attributes")
+    end
+    
+    return hsh
+  end
 end

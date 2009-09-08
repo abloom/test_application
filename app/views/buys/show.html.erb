@@ -1,4 +1,10 @@
 <p>Site: <%= link_to @buy.site.name, site_path(@buy.site) %></p>
-<p>Plan: <%= link_to @buy.plan.advertiser_name, plan_path(@buy.plan) %></p>
+<p>Plan: <%= link_to @buy.plan.advertiser_name, plan_path(@buy.plan) if @buy.plan %></p>
 
+<h2>Placements</h2>
+<ul>
+  <% @buy.placements.each do |placement| %>
+  <li><%= link_to placement.display_name, placement_path(placement) %></li>
+  <% end %>
+</ul>
 <%= link_to "Edit", edit_buy_path(@buy) %>

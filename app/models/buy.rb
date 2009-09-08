@@ -17,6 +17,9 @@ class Buy < ActiveRecord::Base
   validates_presence_of :site
   
   accepts_nested_attributes_for :site
+  accepts_nested_attributes_for :placements, :reject_if => lambda { |atrs|
+    atrs['quantity'] == "1" && atrs["rate"] == "0" && atrs["section"].blank? && atrs["ad_type"].blank?
+  }
   
   def display_name
     "#{site.name} - #{self.id}"
