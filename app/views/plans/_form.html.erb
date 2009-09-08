@@ -1,14 +1,20 @@
 <%= f.text_field :advertiser_name %>
 
+<h2>Buys</h2>
+<%= link_to_remote "Add New Buy", :url => { :action => "add_buy" } %>
+<ul>
 <% f.fields_for(:buys) do |b| %>
-  <fieldset>
-    <legend>
-      <% if b.object.new_record? %>
-      Create Buy
-      <% else %>
-      Update Buy
-      <% end %>
-    </legend>
-    <%= render :partial => "buys/form", :locals => { :f => b } %>
-  </fieldset>
+  <li>
+    <fieldset>
+      <legend>
+        <% if b.object.new_record? %>
+        Create Buy
+        <% else %>
+        Update Buy
+        <% end %>
+      </legend>
+      <%= render :partial => "buys/form", :locals => { :f => b } %>
+    </fieldset>
+  </li>
 <% end %>
+</ul>

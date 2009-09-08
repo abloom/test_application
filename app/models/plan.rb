@@ -22,6 +22,10 @@ class Plan < ActiveRecord::Base
       }
     }
 
+  def after_initialize
+    buys.build if buys.empty?
+  end
+
   def validate
     errors.add_on_empty :buys, "must contain at least one record"
   end

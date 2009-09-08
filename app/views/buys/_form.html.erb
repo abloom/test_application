@@ -9,18 +9,24 @@
   </fieldset>
 <% end %>
 
-<% f.fields_for(:placements) do |p| %>
-  <fieldset>
-    <legend>
-      <% if p.object.new_record? %>
-      Create Placement
-      <% else %>
-      Update Placement
-      <% end %>
-    </legend>
-    <%= render :partial => "placements/form", :locals => { :f => p } %>
-  </fieldset>
-<% end %>
+<h2>Placements</h2>
+<%= link_to_remote "Add New Placement", :url => { :action => "add_placement" } %>
+<ul>
+  <% f.fields_for(:placements) do |p| %>
+  <li>
+    <fieldset>
+      <legend>
+        <% if p.object.new_record? %>
+        Create Placement
+        <% else %>
+        Update Placement
+        <% end %>
+      </legend>
+      <%= render :partial => "placements/form", :locals => { :f => p } %>
+    </fieldset>
+  </li>
+  <% end %>
+</ul>
 
 <script type="text/javascript" charset="utf-8">
   var placements_index = <%= f.object.placements.size %>;

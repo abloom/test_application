@@ -5,9 +5,6 @@ class PlansController < ApplicationController
   
   def new
     @plan = Plan.new
-    @plan.buys.build
-    @plan.buys.last.build_site
-    @plan.buys.last.placements.build
   end
   
   def create
@@ -21,16 +18,12 @@ class PlansController < ApplicationController
     if @plan.save
       redirect_to root_path
     else
-      @plan.buys.build if @plan.buys.empty?
-      @plan.buys.last.build_site if @plan.buys.last.site.nil?
-      @plan.buys.last.placements.build if @plan.buys.last.placements.empty?
-
       render :action => "new"
     end
   end
   
   def show
-    @plan = Plan.find(params[:id])#, :include => { :buys => [:site, :placements] })
+    @plan = Plan.find(params[:id], :include => { :buys => [:site, :placements] })
   end
   
   def edit

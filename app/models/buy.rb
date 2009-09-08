@@ -21,6 +21,11 @@ class Buy < ActiveRecord::Base
     atrs['quantity'] == "1" && atrs["rate"] == "0" && atrs["section"].blank? && atrs["ad_type"].blank?
   }
   
+  def after_initialize
+    build_site unless site
+    placements.build if placements.empty?
+  end
+  
   def display_name
     "#{site.name} - #{self.id}"
   end

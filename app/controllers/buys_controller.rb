@@ -1,19 +1,15 @@
 class BuysController < ApplicationController
   def new
     @buy = Buy.new()
-    @buy.build_site
-    @buy.placements.build
   end
   
   def create
     buy_params = remove_site_conflict!(params[:buy].dup)
-    @buy = Buy.new(params[:buy])
+    @buy = Buy.new(buy_params)
     
     if @buy.save
       redirect_to root_path
     else
-      @buy.build_site unless @buy.site
-      @buy.placements.build if @buy.placements.empty?
       render :action => "new"
     end
   end
@@ -27,7 +23,7 @@ class BuysController < ApplicationController
   end
   
   def edit
-    @buy = Buy.find(params[:id])
+    @buy = Buy.find(params[:id], :include => [:placements])
   end
   
   def update
