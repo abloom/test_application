@@ -2,6 +2,8 @@
 
 <% form_for(@buy, :builder => LabeledBuilder) do |f| %>
   <%= f.error_messages %>
-  <%= render :partial => "form", :locals => { :f => f } %>  
+  <div id="form_fields">
+    <%= render :partial => "form", :locals => { :f => f } %>  
+  </div>
   <%= submit_tag "Create" %>
 <% end %>

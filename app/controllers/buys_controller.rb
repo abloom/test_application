@@ -4,8 +4,7 @@ class BuysController < ApplicationController
   end
   
   def create
-    buy_params = remove_site_conflict!(params[:buy].dup)
-    @buy = Buy.new(buy_params)
+    @buy = filter_and_build(params[:buy])
     
     if @buy.save
       redirect_to root_path
@@ -35,4 +34,17 @@ class BuysController < ApplicationController
       render :action => "edit"
     end
   end
+  
+  def add_placement
+    @buy = filter_and_build(params[:buy])
+    @buy.placements.build
+    
+    f = fields_for("buy", :builder => LabeledBuilder)
+    render :partial => "form", :locals => { :f => f }
+  end
+    
+    private
+      def filter_and_build(hsh)
+        Buy.new(remove_site_conflict!(hsh.dup))
+      end
 end

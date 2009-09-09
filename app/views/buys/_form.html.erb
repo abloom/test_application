@@ -3,14 +3,13 @@
 <% if %w(new create).include?(@controller.action_name) %>
   <fieldset>
     <legend>or create a new Site</legend>
-    <% f.fields_for(:site) do |s| %>
+    <% f.fields_for(:site, f.object.build_site) do |s| %>
       <%= render :partial => "sites/form", :locals => { :f => s } %>
     <% end %>
   </fieldset>
 <% end %>
 
 <h2>Placements</h2>
-<%= link_to_remote "Add New Placement", :url => { :action => "add_placement" } %>
 <ul>
   <% f.fields_for(:placements) do |p| %>
   <li>
@@ -26,8 +25,21 @@
     </fieldset>
   </li>
   <% end %>
+  
+  <!-- build new placement -->
+  <% f.fields_for(:placements, f.object.placements.build) do |p| %>
+  <li>
+    <fieldset>
+      <legend>
+        <% if p.object.new_record? %>
+        Create Placement
+        <% else %>
+        Update Placement
+        <% end %>
+      </legend>
+      <%= render :partial => "placements/form", :locals => { :f => p } %>
+      <%= link_to_remote "Add New Placement", :url => { :action => "add_placement" }, :with => "form_contents()" %>
+    </fieldset>
+  </li>
+  <% end %>
 </ul>
-
-<script type="text/javascript" charset="utf-8">
-  var placements_index = <%= f.object.placements.size %>;
-</script>

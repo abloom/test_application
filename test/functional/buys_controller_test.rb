@@ -73,4 +73,49 @@ class BuysControllerTest < ActionController::TestCase
     assert buy.new_record?
     assert_response :success
   end
+  
+  context "a buy factory" do
+    setup do
+      @buy = Factory(:buy)
+    end
+    
+    should "index should show all buy" do
+      get :index
+
+      assert_response :success
+      assert_equal [@buy], assigns("buys")
+    end
+    
+    should "show a specific buy" do
+      get :show, :id => @buy.id
+      
+      assert_response :success
+      assert_equal @buy, assigns("buy")
+    end
+    
+    should "edit a specific buy" do
+      get :edit, :id => @buy.id
+      
+      assert_response :success
+      assert_equal @buy, assigns("buy")
+    end
+    
+    should "update a specific buy" do
+      site2 = Factory(:site)
+      put :update, :id => @buy.id, :buy => { :site_id => site2.id }
+      
+      buy = assigns("buy")
+      assert_equal site2, buy.site
+      assert_redirected_to root_path
+    end
+    
+    should "fail to update a specific buy with invalid params" do
+      site2 = Factory(:site)
+      put :update, :id => @buy.id, :buy => { :site_id => nil }
+      
+      buy = assigns("buy")
+      assert_not_equal site2, buy.site
+      assert_response :success
+    end
+  end
 end

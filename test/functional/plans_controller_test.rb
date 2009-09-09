@@ -8,13 +8,29 @@ class PlansControllerTest < ActionController::TestCase
   end
   
   test "create with valid params" do
-    assert_difference "Plan.count" do
-      post :create, :plan => { :advertiser_name => "Ford", :buy_ids => [Factory(:buy).id] }
+    site = Factory(:site)
+    
+    assert_difference "Plan.count" do      
+      post :create, :plan => { 
+        :advertiser_name => "Ford", 
+        :buys_attributes => {
+          0 => {
+            :site_id => site.id,
+            :site_attributes => {
+              :url => "http://www.google.com",
+              :name => "Google",
+              :billing_contact => "Lary Page"
+            }, 
+            :placement_ids => [Factory(:placement).id]
+          }
+        }
+      }
     end
     
     plan = assigns("plan")
     assert plan
     assert_false plan.new_record?
+    assert_equal site, plan.buys.first.site
     assert_redirected_to root_path
   end
   

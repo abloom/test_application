@@ -34,7 +34,7 @@ stories and provide tests for your code.
 well-tested code. Don't worry about making it look awesome, just make it work.
 
 * -As a user, I can create a new Plan.-
-* -As a user, I can add Buys to a Plan.-
+* As a user, I can add Buys to a Plan.
 * -As a user, I can add a Site or @site_name to a Buy.-
 * As a user, I can add and edit Placements on a Buy.
 * -As a user, I cannot save a Plan unless it has at least one Buy.-

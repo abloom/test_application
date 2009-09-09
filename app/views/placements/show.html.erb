@@ -1,7 +1,0 @@
-<p>Section: <%=h @placement.section %></p>
-<p>Ad Type: <%=h @placement.ad_type %></p>
-<p>Start Date: <%= @placement.start_date.to_s(:short) %></p>
-<p>End Date: <%= @placement.end_date.to_s(:short) %></p>
-<p>Quantity: <%= @placement.quantity %></p>
-<p>Rate: <%= @placement.rate %></p>
-<p>Buy: <%= link_to @placement.buy.display_name, buy_path(@placement.buy) %></p>
