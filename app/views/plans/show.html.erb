@@ -4,11 +4,11 @@
 <ul>
   <% @plan.buys.group_by(&:site).each do |site, buys| %>
     <li>
-      <%= link_to site.name, site_path(site) %>
+      Placements for <%= link_to site.name, site_path(site) %>
       <ul>
         <% buys.each do |buy| %>
           <% buy.placements.each do |placement| %>
-            <li><%= link_to placement.display_name, placement_path(placement) %></li>
+            <li><%= placement.display_name %></li>
           <% end %>
         <% end %>
       </ul>

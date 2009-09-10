@@ -2,7 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  helper :all # include all helpers, all the time
+  # helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
@@ -10,13 +10,14 @@ class ApplicationController < ActionController::Base
   
   layout "default"
   
-  def remove_site_conflict!(hsh)
-    if hsh["site_id"].blank?
-      hsh.delete("site_id")
-    else
-      hsh.delete("site_attributes")
-    end
+  protected
+    def remove_site_conflict!(hsh)
+      if hsh["site_id"].blank?
+        hsh.delete("site_id")
+      else
+        hsh.delete("site_attributes")
+      end
 
-    return hsh
-  end
+      return hsh
+    end
 end

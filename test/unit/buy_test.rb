@@ -32,47 +32,59 @@ class BuyTest < ActiveSupport::TestCase
     end
   end
 
-  test "after_initialize builds a site" do
-    buy = Buy.new
-    assert buy.site
-    assert buy.site.new_record?
+  context "after_initialize with empty hash" do
+    setup do
+      @buy = Buy.new
+    end
     
-    buy = Buy.new(:site => Factory(:site))
-    assert_false buy.site.new_record?
+    should "build a site" do
+      assert @buy.site
+      assert @buy.site.new_record?
+    end
+
+    should "build a placement" do
+      assert_false @buy.placements.empty?
+      assert @buy.placements.first.new_record?
+      assert @buy.initialize_placement
+    end
   end
   
-  test "after_initialize builds a placement" do
-    buy = Buy.new
-    assert_false buy.placements.empty?
-    assert buy.placements.first.new_record?
-    assert buy.initialize_placement
+  context "after_initialize with full hash" do
+    setup do
+      @buy = Buy.new(:site => Factory(:site), :placements => [Factory(:placement)])
+    end
     
-    buy = Buy.new(:placements => [Factory(:placement)])
-    assert_false buy.placements.first.new_record?
-    assert_false buy.initialize_placement
+    should "build a site" do
+      assert_false @buy.site.new_record?
+    end
+
+    should "build a placement" do
+      assert_false @buy.placements.first.new_record?
+      assert_false @buy.initialize_placement
+    end
   end
   
   test "placements nested attrs rejection" do
-    buy = Buy.new(:placements_attributes => { 
-      0 => {
-        'quantity' => '1',
-        'rate' => '0',
-        'section' => '',
-        'ad_type' => ''
-      }
-    })
-    
+    buy = Buy.new(
+      'placements_attributes' => { 
+        0 => {
+          'quantity' => '1',
+          'rate' => '0',
+          'section' => '',
+          'ad_type' => ''
+        }
+      })
     assert buy.initialize_placement
     
-    buy = Buy.new(:placements_attributes => { 
-      0 => {
-        'quantity' => '1',
-        'rate' => '0',
-        'section' => 'asd',
-        'ad_type' => 'dsa'
-      }
-    })
-    
+    buy = Buy.new(
+      'placements_attributes' => { 
+        0 => {
+          'quantity' => '1',
+          'rate' => '0',
+          'section' => 'asd',
+          'ad_type' => 'dsa'
+        }
+      })
     assert_false buy.initialize_placement
   end
 

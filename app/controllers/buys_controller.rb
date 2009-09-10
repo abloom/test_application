@@ -1,4 +1,6 @@
 class BuysController < ApplicationController
+  helper :buys
+  
   def new
     @buy = Buy.new()
   end
@@ -36,7 +38,7 @@ class BuysController < ApplicationController
   end
   
   def add_placement
-    @buy = filter_and_build(params[:buy], params[:originating_action] || "new", params[:buy_id])
+    @buy = filter_and_build(params[:buy], params[:id])
     @buy.placements.build unless @buy.initialize_placement
     
     render :update do |page|
@@ -46,16 +48,15 @@ class BuysController < ApplicationController
   end
     
     private    
-      def filter_and_build(hsh, orig_action = "new", buy_id = nil)
-        case orig_action
-        when "new"
-          return Buy.new(remove_site_conflict!(hsh.dup))
-        when "edit"
-          buy = Buy.find(buy_id)
-          buy.update_attributes(hsh)
-          return buy
+      def filter_and_build(hsh, id = nil)
+        buy = if id.blank?
+          Buy.new(remove_site_conflict!(hsh.dup))
         else
-          raise "unknown originating action"
+          buy = Buy.find(id)
+          buy.attributes = hsh
+          buy
         end
+        
+        return buy
       end
 end

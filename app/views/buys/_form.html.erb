@@ -7,9 +7,6 @@
       <%= render :partial => "sites/form", :locals => { :f => s } %>
     <% end %>
   </fieldset>
-<% else %>
-  <%= hidden_field_tag(:buy_id, f.object.id) %>
-  <%= hidden_field_tag(:originating_action, "edit") %>
 <% end %>
 
 <h2>Placements</h2>
@@ -28,7 +25,7 @@
     </fieldset>
   </li>
   <% end %>
-  <li><%= link_to_remote "Add New Placement", :url => { :action => "add_placement" }, :with => "form_contents()" %></li>
+  <li><%= link_to_remote "Add New Placement", :url => add_placement_path(f.object), :with => "form_contents()" %></li>
 </ul>
 
 

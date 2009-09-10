@@ -119,7 +119,7 @@ class BuysControllerTest < ActionController::TestCase
     end
     
     should "add a placement to the buy" do
-      post :add_placement, :id => @buy.id, :buy => @buy.attributes
+      post :add_placement, :id => @buy.id, :buy => @buy.attributes, :originating_action => "edit"
       assert_response :success
       
       buy = assigns('buy')
