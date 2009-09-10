@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     else
       hsh.delete("site_attributes")
     end
-    
+
     return hsh
   end
 end

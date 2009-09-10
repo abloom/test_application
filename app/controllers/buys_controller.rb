@@ -36,15 +36,26 @@ class BuysController < ApplicationController
   end
   
   def add_placement
-    @buy = filter_and_build(params[:buy])
-    @buy.placements.build
+    @buy = filter_and_build(params[:buy], params[:originating_action] || "new", params[:buy_id])
+    @buy.placements.build unless @buy.initialize_placement
     
-    f = fields_for("buy", :builder => LabeledBuilder)
-    render :partial => "form", :locals => { :f => f }
+    render :update do |page|
+      page.replace_html "form-fields", :partial => "wrapped_form"      
+      page.visual_effect :highlight, "new-placement"
+    end
   end
     
-    private
-      def filter_and_build(hsh)
-        Buy.new(remove_site_conflict!(hsh.dup))
+    private    
+      def filter_and_build(hsh, orig_action = "new", buy_id = nil)
+        case orig_action
+        when "new"
+          return Buy.new(remove_site_conflict!(hsh.dup))
+        when "edit"
+          buy = Buy.find(buy_id)
+          buy.update_attributes(hsh)
+          return buy
+        else
+          raise "unknown originating action"
+        end
       end
 end

@@ -117,5 +117,13 @@ class BuysControllerTest < ActionController::TestCase
       assert_not_equal site2, buy.site
       assert_response :success
     end
+    
+    should "add a placement to the buy" do
+      post :add_placement, :id => @buy.id, :buy => @buy.attributes
+      assert_response :success
+      
+      buy = assigns('buy')
+      assert_equal buy.placements.size, @buy.placements.size + 1
+    end
   end
 end

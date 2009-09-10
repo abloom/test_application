@@ -1,18 +1,21 @@
 <%= f.collection_select :site_id, Site.all, :id, :name, :include_blank => true, :label => "Site" %>
 
-<% if %w(new create).include?(@controller.action_name) %>
+<% if f.object.new_record? %>
   <fieldset>
     <legend>or create a new Site</legend>
-    <% f.fields_for(:site, f.object.build_site) do |s| %>
+    <% f.fields_for(:site) do |s| %>
       <%= render :partial => "sites/form", :locals => { :f => s } %>
     <% end %>
   </fieldset>
+<% else %>
+  <%= hidden_field_tag(:buy_id, f.object.id) %>
+  <%= hidden_field_tag(:originating_action, "edit") %>
 <% end %>
 
 <h2>Placements</h2>
 <ul>
   <% f.fields_for(:placements) do |p| %>
-  <li>
+  <li id="<%= "new-placement" if p.object == f.object.placements.last %>">
     <fieldset>
       <legend>
         <% if p.object.new_record? %>
@@ -25,21 +28,7 @@
     </fieldset>
   </li>
   <% end %>
-  
-  <!-- build new placement -->
-  <% f.fields_for(:placements, f.object.placements.build) do |p| %>
-  <li>
-    <fieldset>
-      <legend>
-        <% if p.object.new_record? %>
-        Create Placement
-        <% else %>
-        Update Placement
-        <% end %>
-      </legend>
-      <%= render :partial => "placements/form", :locals => { :f => p } %>
-      <%= link_to_remote "Add New Placement", :url => { :action => "add_placement" }, :with => "form_contents()" %>
-    </fieldset>
-  </li>
-  <% end %>
+  <li><%= link_to_remote "Add New Placement", :url => { :action => "add_placement" }, :with => "form_contents()" %></li>
 </ul>
+
+

@@ -1,0 +1,3 @@
+<% fields_for("plan", @plan, :builder => LabeledBuilder) do |f| %>
+  <%= render :partial => "form", :locals => { :f => f } %>
+<% end %>
