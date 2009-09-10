@@ -84,7 +84,7 @@ class PlansControllerTest < ActionController::TestCase
       assert_redirected_to root_path
     end
 
-    should "update with invalid params" do
+    should "fail to update with invalid params" do
       put :update, :plan => { :advertiser_name => "", :buy_ids => [] }, :id => @plan.id
 
       plan = assigns("plan")
@@ -93,5 +93,23 @@ class PlansControllerTest < ActionController::TestCase
       assert_false plan.valid?
       assert_response :success
     end
-  end  
+    
+    should "add a placement to a buy" do
+      assert_equal 1, @plan.buys[0].placements.size
+      post :add_placement, :id => @plan.id, :plan => @plan.attributes, :buy_index => 0
+      assert_response :success
+      
+      plan = assigns('plan')
+      buy = plan.buys[0]
+      assert_equal 2, buy.placements.size
+    end
+    
+    should "add a buy to the plan" do
+      post :add_buy, :id => @plan.id, :plan => @plan.attributes
+      assert_response :success
+      
+      plan = assigns('plan')
+      assert_equal @plan.buys.size + 1, plan.buys.size
+    end
+  end
 end
